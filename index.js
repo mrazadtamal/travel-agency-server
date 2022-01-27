@@ -20,7 +20,7 @@ async function run() {
   try {
     await client.connect();
     const database = client.db("travel");
-    const allBlog = database.collection("blog");
+    const allBlog = database.collection("blogs");
 
     // get all blog data
     app.get("/blogs", async (req, res) => {
