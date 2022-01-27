@@ -33,17 +33,28 @@ async function run() {
       }
     });
 
-    // // get single bloh data
-    // app.get("/blog/:id", async (req, res) => {
-    //   const { id } = req.params;
-    //   console.log(id);
-    //   try {
-    //     const singleData = await allBlog.findOne({ _id: ObjectId(id) });
-    //     res.json(singleData);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // });
+    // get single blog data
+    app.get("/blog/:id", async (req, res) => {
+      const { id } = req.params;
+      console.log(id);
+      try {
+        const singleData = await allBlog.findOne({ _id: ObjectId(id) });
+        res.json(singleData);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    //  add blog
+    app.post("/addblog", async (req, res) => {
+      const data = req.body;
+      try {
+        const result = await allBlog.insertOne(data);
+        res.status(200).json(result);
+      } catch (err) {
+        console.log(err);
+      }
+    });
   } finally {
     // await client.close();
   }
