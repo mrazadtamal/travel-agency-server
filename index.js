@@ -32,6 +32,18 @@ async function run() {
         console.log(err);
       }
     });
+
+    // // get single bloh data
+    // app.get("/blog/:id", async (req, res) => {
+    //   const { id } = req.params;
+    //   console.log(id);
+    //   try {
+    //     const singleData = await allBlog.findOne({ _id: ObjectId(id) });
+    //     res.json(singleData);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // });
   } finally {
     // await client.close();
   }
