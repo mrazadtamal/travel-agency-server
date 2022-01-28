@@ -23,6 +23,7 @@ async function run() {
     await client.connect();
     const database = client.db("travel");
     const allBlog = database.collection("blogs");
+    const admin = database.collection("admin");
 
     // get all blog data
     app.get("/blogs", async (req, res) => {
@@ -53,6 +54,40 @@ async function run() {
       try {
         const result = await allBlog.insertOne(data);
         res.status(200).json(result);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    // single Blog delete
+    app.delete("/deleteBlogs/:id", async (req, res) => {
+      const { id } = req.params;
+      try {
+        await allBlog.deleteOne({ _id: ObjectId(id) });
+        res.status(200).json({ message: " deleted" });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    //  Make an Admin
+    app.post("/admin", async (req, res) => {
+      const data = req.body;
+
+      try {
+        const result = await admin.insertOne(data);
+        res.status(200).json(result);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    // get admin
+    app.get("/admin", async (req, res) => {
+      try {
+        const cursor = admin.find({});
+        const data = await cursor.toArray();
+        res.send(data);
       } catch (err) {
         console.log(err);
       }
